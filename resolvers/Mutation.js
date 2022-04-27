@@ -8,7 +8,8 @@ export const Mutation = {
     if (userObject) {
       const newTodo = { id: uuidv4(), ...AddTodoInput };
       db.todos.push(newTodo);
-      pubsub.publish('Todo', { ...newTodo, Operation: 'Add' });
+      const TodoOp = { ...newTodo, Operation: 'Add' };
+      pubsub.publish('TodoOp', { TodoOp });
       return newTodo;
     } else {
       throw new Error('User is not found.');
@@ -21,8 +22,9 @@ export const Mutation = {
         ...db.todos[index],
         ...UpdateTodoInput,
       };
+      const TodoOp = { ...db.todos[index], Operation: 'Update' };
       const Todo = db.todos[index];
-      pubsub.publish('Todo', { ...Todo, Operation: 'Update' });
+      pubsub.publish('TodoOp', { TodoOp });
       return Todo;
     } else {
       throw new Error('Todo is not found.');
@@ -31,11 +33,10 @@ export const Mutation = {
   deleteTodo: (parent, { DeleteTodoInput }, { db, pubsub }, info) => {
     let index = db.todos.findIndex((todo) => todo.id == DeleteTodoInput.id);
     if (index != -1) {
-      const Todo = db.todos[index];
+      const TodoOp = { ...db.todos[index], Operation: 'Delete' };
       delete db.todos[index];
-      pubsub.publish('Todo', {
-        ...Todo,
-        Operation: 'Delete',
+      pubsub.publish('TodoOp', {
+        TodoOp,
       });
       return true;
     } else {

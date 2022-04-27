@@ -1,7 +1,7 @@
 export const Subscription = {
-  Todo: {
+  TodoOp: {
     subscribe(parent, args, { pubsub }, info) {
-      return pubsub.asyncIterator('Todo');
+      return pubsub.asyncIterator('TodoOp');
     },
   },
 };
