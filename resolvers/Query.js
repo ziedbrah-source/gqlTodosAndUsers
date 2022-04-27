@@ -1,16 +1,14 @@
-import { db } from '../data/db.js';
-
 export const Query = {
-  getUsers: () => {
+  getUsers: (_, {}, { db }) => {
     return db.users;
   },
-  getTodos: () => {
+  getTodos: (_, {}, { db }) => {
     return db.todos;
   },
-  getTodo: (_, { id }) => {
+  getTodo: (_, { id }, { db }) => {
     return db.todos.find((todo) => todo.id == id);
   },
-  getUser: (_, { id }) => {
+  getUser: (_, { id }, { db }) => {
     return db.users.find((user) => user.id == id);
   },
 };

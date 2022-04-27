@@ -29,6 +29,7 @@ type Todo {
   name: String!
   content: String!
   todoStatus: TodoStatus!
+  ownerId: String!
   user: User!
 }
 type User {
@@ -42,4 +43,25 @@ type Query {
   getTodos: [Todo]
   getTodo(id: ID!): Todo
   getUser(id: ID!): User
+}
+input AddTodoInput {
+  name: String!
+  content: String!
+  ownerId: String!
+}
+input UpdateTodoInput {
+  id: ID!
+  name: String
+  content: String
+  todoStatus: TodoStatus
+  ownerId: String
+}
+input DeleteTodoInput {
+  id: ID!
+}
+
+type Mutation {
+  addTodo(AddTodoInput: AddTodoInput): Todo
+  updateTodo(UpdateTodoInput: UpdateTodoInput): Todo
+  deleteTodo(DeleteTodoInput: DeleteTodoInput): Boolean
 }
