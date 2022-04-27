@@ -31,6 +31,7 @@ type Todo {
   todoStatus: TodoStatus!
   ownerId: String!
   user: User!
+  Operation: String
 }
 type User {
   id: ID!
@@ -64,4 +65,8 @@ type Mutation {
   addTodo(AddTodoInput: AddTodoInput): Todo
   updateTodo(UpdateTodoInput: UpdateTodoInput): Todo
   deleteTodo(DeleteTodoInput: DeleteTodoInput): Boolean
+}
+
+type Subscription {
+  Todo: Todo!
 }
